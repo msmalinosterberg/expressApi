@@ -3,10 +3,33 @@ const app = express();
 const port = 3000; 
 
 const courses = [
-    { id: 1, name:'course1'}, 
-    { id: 2, name:'course2'}, 
-    { id: 3, name:'course3'}, 
-    { id: 4, name:'course4'}, 
+    {   
+        id: 1, 
+        name:'HTML & CSS',
+        points: 20,
+        location: 'Göteborg'
+    }, 
+    { 
+        id: 2,
+        name:'JavaScript grundkurs',
+        points: 60,
+        location: 'remote/Göteborg'
+
+    }, 
+    { 
+        id: 3,
+        name:'Projektarbete med agila metoder',
+        points: 15,
+        location: 'remote/Göteborg'
+
+    }, 
+    { 
+        id: 4,
+        name:'JavaScript fördjupning',
+        points: 40,
+        location: 'remote/Göteborg'
+
+    }, 
 ]; 
 
 

@@ -40,6 +40,7 @@ const courses = [
 //Serve alla filer i public filen
 app.use(express.static('./public'))
 
+// endpoints 
 
 //Visar alla kurser 
 app.get('/api/courses', (req, res) => {
@@ -69,8 +70,10 @@ app.get('/api/courses/:id', (req, res) => {
 })
 
 
-app.delete('api/courses', (req, res) => {
-    
+app.delete('/api/courses', (req, res) => {
+    const index = courses.findIndex(c => c.id === parseInt(req.params.id)); 
+    const deletedCourse = courses.splice(index, 1); 
+    res.json(deletedCourse); 
 })
 
 //Startar servern 

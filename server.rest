@@ -2,11 +2,16 @@ GET http://localhost:3000
 
 ###
 
-GET http://localhost:3000/api/courses/
+GET http://localhost:3000/api/courses
 
 ###
 
 GET http://localhost:3000/api/courses/3
+###
+
+
+DELETE http://localhost:3000/api/courses/
+
 ###
 
 POST http://localhost:3000/api/courses
@@ -17,3 +22,4 @@ Content-Type: application/json
     "points": 45, 
     "location": "remote/Göteborg" 
 }
+

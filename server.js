@@ -40,7 +40,7 @@ const courses = [
 //Serve alla filer i public filen
 app.use(express.static('./public'))
 
-// endpoints 
+// Endpoints 
 
 //Visar alla kurser 
 app.get('/api/courses', (req, res) => {
@@ -69,12 +69,21 @@ app.get('/api/courses/:id', (req, res) => {
   res.json(course); 
 })
 
-
+//Raderar en kurs 
 app.delete('/api/courses', (req, res) => {
     const index = courses.findIndex(c => c.id === parseInt(req.params.id)); 
     const deletedCourse = courses.splice(index, 1); 
     res.json(deletedCourse); 
 })
+
+//Uppdaterar en specifik kurs 
+app.put('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id)); 
+    course.name = req.body.name,
+    course.location = req.body.location; 
+    res.json(course)
+})
+
 
 //Startar servern 
 app.listen(port, () => console.log(` Server is running at http://localhost:${port}`)); 

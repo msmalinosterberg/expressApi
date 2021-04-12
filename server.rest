@@ -8,10 +8,6 @@ GET http://localhost:3000/api/courses
 ###
 
 GET http://localhost:3000/api/courses/3
-###
-
-
-DELETE http://localhost:3000/api/courses/
 
 ###
 
@@ -31,5 +27,12 @@ Content-Type: application/json
 
 {
     "name": "Nytt namn på kursen", 
+    "points": "100", 
     "location": "Stockholm!!"
 }
+
+###
+
+DELETE http://localhost:3000/api/courses/
+
+###

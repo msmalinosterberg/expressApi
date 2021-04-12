@@ -2,8 +2,6 @@ const express = require('express');
 const app = express(); 
 const port = 3000; 
 
-//Lägger till en middleware
-//All inkommande anrop ska body parsas från json till JavaScript 
 app.use(express.json())
 
 const courses = [
@@ -41,14 +39,20 @@ const courses = [
 app.use(express.static('./public'))
 
 // Endpoints 
-
-//Visar alla kurser 
 app.get('/api/courses', (req, res) => {
     res.json(courses); 
 }); 
 
+app.get('/api/courses/:id', (req, res) => {
+    const course = courses.find(c => c.id === parseInt(req.params.id)); 
+    //const id = req.params.id; 
+    //const foundCourse = course.find(course) => {
+     //   return course.id == id
+   // }
+    if(!course) return res.status(404).send('The course with the given ID was not found')
+    res.json(course); 
+  })
 
-//Lägger till en kurs 
 app.post('/api/courses', (req, res) => {
     const newCourse = {
         id: Date.now(),
@@ -56,27 +60,11 @@ app.post('/api/courses', (req, res) => {
         points: req.body.points, 
         location: req.body.location
     }
-    res.status(201); // Requesten var successful 
+    res.status(201);
     courses.push(newCourse); 
-    res.json(courses); //skicka alltid tillbaka json
+    res.json(courses);
 })
 
-
-//Hämtar en specifik kurs med ett id 
-app.get('/api/courses/:id', (req, res) => {
-  const course = courses.find(c => c.id === parseInt(req.params.id)); 
-  if(!course) return res.status(404).send('The course with the given ID was not found')
-  res.json(course); 
-})
-
-//Raderar en kurs 
-app.delete('/api/courses', (req, res) => {
-    const index = courses.findIndex(c => c.id === parseInt(req.params.id)); 
-    const deletedCourse = courses.splice(index, 1); 
-    res.json(deletedCourse); 
-})
-
-//Uppdaterar en specifik kurs 
 app.put('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id)); 
     course.name = req.body.name,
@@ -84,6 +72,15 @@ app.put('/api/courses/:id', (req, res) => {
     res.json(course)
 })
 
+app.delete('/api/courses', (req, res) => {
+    const index = courses.findIndex(c => c.id === parseInt(req.params.id)); 
+    const deletedCourse = courses.splice(index, 1); 
+    res.json(deletedCourse); 
+})
 
-//Startar servern 
 app.listen(port, () => console.log(` Server is running at http://localhost:${port}`)); 
+
+// Kolla över felkoder. Felsökning 
+// VG krav 
+// Uppdatera readme filen 
+// Ändra alla id så det passar bättre med random funktionen 

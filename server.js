@@ -1,8 +1,9 @@
 const express = require('express'); 
-const app = express(); 
+const app = express();
+const fs = require("fs"); 
 const port = 3000; 
 
-app.use(express.json())
+app.use(express.json()); 
 
 const courses = [
     
@@ -35,44 +36,78 @@ const courses = [
     }, 
 ]; 
 
+
+
 //Serve alla filer i public filen
 app.use(express.static('./public'))
 
-// Endpoints 
 app.get('/api/courses', (req, res) => {
-    res.json(courses); 
-}); 
-
-app.get('/api/courses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id)); 
-    //const id = req.params.id; 
-    //const foundCourse = course.find(course) => {
-     //   return course.id == id
-   // }
-    if(!course) return res.status(404).send('The course with the given ID was not found')
-    res.json(course); 
-  })
-
-app.post('/api/courses', (req, res) => {
-    const newCourse = {
-        id: Date.now(),
-        name: req.body.name, 
-        points: req.body.points, 
-        location: req.body.location
-    }
-    res.status(201);
-    courses.push(newCourse); 
     res.json(courses);
+});
+
+// All courses 
+app.get("/api/courses", (req, res) => {
+    
+        if(err) {
+            return res.status(404).json ('Error')
+        }
+        if(courses > 1) {
+            res.status(404).json('Sorry, no courses available')
+        return; 
+    }
+    res.json(courses); 
+    
 })
 
+
+// Specific course with id 
+app.get('/api/courses/:id', (req, res) => {
+    const id = req.params.id
+
+    const foundCourse = courses.find((course) => {
+        return course.id == id
+    })
+
+    if(!foundCourse) {
+        res.json({"Error": "This id doesnt exist"});
+ 
+    }
+
+    res.json(foundCourse);
+});
+
+// Add a new course 
+app.post('/api/courses', (req, res) => {
+    const bodyToSave = req.body
+
+    let idToSave = 0;
+    courses.forEach((course) => {
+        if(course.id > idToSave) {
+            idToSave = course.id
+        }
+    })
+    idToSave++
+    res.status(201);
+    courses.push({
+        id: idToSave,
+        body: bodyToSave
+    })
+    res.json({
+        status: "Added new course"
+    })
+});
+
+// Update a specific course 
 app.put('/api/courses/:id', (req, res) => {
     const course = courses.find(c => c.id === parseInt(req.params.id)); 
     course.name = req.body.name,
+    course.points = req.body.points,
     course.location = req.body.location; 
     res.json(course)
 })
 
-app.delete('/api/courses', (req, res) => {
+//Delete a course 
+app.delete('/api/courses/:id', (req, res) => {
     const index = courses.findIndex(c => c.id === parseInt(req.params.id)); 
     const deletedCourse = courses.splice(index, 1); 
     res.json(deletedCourse); 
@@ -83,4 +118,3 @@ app.listen(port, () => console.log(` Server is running at http://localhost:${por
 // Kolla över felkoder. Felsökning 
 // VG krav 
 // Uppdatera readme filen 
-// Ändra alla id så det passar bättre med random funktionen 

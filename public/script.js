@@ -17,29 +17,30 @@ function addEventListeners() {
 async function getAllCourses() {
     const courses = await makeRequest("/api/courses", "GET")
     console.log(courses)
-    const ul = document.getElementById("list");
+    const ul = document.getElementById("courseList");
     ul.innerHTML = "";
     courses.forEach((course) => {
       const li = document.createElement("li");
-      li.appendChild(document.createTextNode(course.name + " - "));
-      li.appendChild(document.createTextNode(course.points + " - "));
-      li.appendChild(document.createTextNode(course.location));
+      li.appendChild(document.createTextNode("Id: "+ course.id + "  "));
+      li.appendChild(document.createTextNode("Name: "+ course.name + "  "));
+      li.appendChild(document.createTextNode("Points: " + course.points + "  "));
+      li.appendChild(document.createTextNode("Location: "+ course.location + "  "));
       ul.appendChild(li);
     });
+    return courses; 
 }
 
 async function getSpecificCourse(id) {
     const course = await makeRequest("/api/courses/" + "3", "GET")
     console.log(course)
-    const ul = document.getElementById("list");
- 
-    courses.forEach((course) => {
-      const li = document.createElement("li");
-      li.appendChild(document.createTextNode(course.name + " - "));
-      li.appendChild(document.createTextNode(course.points + " - "));
-      li.appendChild(document.createTextNode(course.location));
-      ul.appendChild(li);
-    });
+    const ul = document.getElementById("courseList");
+        const li = document.createElement("li");
+        li.appendChild(document.createTextNode("Id: "+ course.id + "  "));
+        li.appendChild(document.createTextNode("Name: "+ course.name + "  "));
+        li.appendChild(document.createTextNode("Points: " + course.points + "  "));
+        li.appendChild(document.createTextNode("Location: "+ course.location + "  "));
+        ul.appendChild(li);
+        return course; 
 }
 
 

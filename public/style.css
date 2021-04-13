@@ -1,3 +1,10 @@
 body {
     background: lightgrey;
 }
+
+.form-control {
+    width: 35rem; 
+}
+hr {
+    width: 40rem;
+}

@@ -105,31 +105,40 @@ app.post('/api/courses', (req, res) => {
 
 // Update a specific course 
 app.put('/api/courses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id));
-    course.name = req.body.name,
-        course.points = req.body.points,
-        course.location = req.body.location;
-    res.json(course)
-})
-
-//Delete a course 
-app.delete('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         let courses = JSON.parse(data)
 
-        const index = courses.findIndex(c => c.id === parseInt(req.params.id));
-        const deletedCourse = courses.splice(index, 1);
-        res.json(deletedCourse);
-         fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
-        res.json({
-            status: "Added new course"
+        const course = courses.find(c => c.id === parseInt(req.params.id));
+        course.name = req.body.name,
+            course.points = req.body.points,
+            course.location = req.body.location;
+        res.json(course)
+        fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+            res.json({
+                status: "Course deleted"
+            })
         })
     })
-    })
-   
 })
 
-app.listen(port, () => console.log(` Server is running at http://localhost:${port}`));
+    //Delete a course 
+    app.delete('/api/courses/:id', (req, res) => {
+        fs.readFile('courseList.json', (err, data) => {
+            let courses = JSON.parse(data)
+
+            const index = courses.findIndex(c => c.id === parseInt(req.params.id));
+            const deletedCourse = courses.splice(index, 1);
+            res.json(deletedCourse);
+            fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+                res.json({
+                    status: "Course deleted"
+                })
+            })
+        })
+
+    })
+
+    app.listen(port, () => console.log(` Server is running at http://localhost:${port}`));
 
 //TODO
 // Kolla över felkoder. Felsökning 

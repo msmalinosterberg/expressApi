@@ -1,11 +1,12 @@
-const express = require('express'); 
+const express = require('express');
+const fs = require("fs");
+
 const app = express();
-const fs = require("fs"); 
-const port = 3000; 
+const port = 3000;
 
-app.use(express.json()); 
 
-const courses = [
+
+/*const courses = [
     
     {   
         id: 1, 
@@ -35,86 +36,102 @@ const courses = [
 
     }, 
 ]; 
-
-
+*/
 
 //Serve alla filer i public filen
 app.use(express.static('./public'))
+app.use(express.json());
 
-app.get('/api/courses', (req, res) => {
+
+app.get('/', (req, res) => {
     res.json(courses);
 });
 
+
 // All courses 
 app.get("/api/courses", (req, res) => {
-    
-        if(err) {
-            return res.status(404).json ('Error')
+    fs.readFile('courseList.json', (err, data) => {
+        let courses = JSON.parse(data)
+        if (err) {
+            res.status(404).json('there are no courses')
         }
-        if(courses > 1) {
-            res.status(404).json('Sorry, no courses available')
-        return; 
-    }
-    res.json(courses); 
-    
-})
+        res.json(courses);
+    })
+});
 
 
 // Specific course with id 
 app.get('/api/courses/:id', (req, res) => {
-    const id = req.params.id
+    fs.readFile('courseList.json', (err, data) => {
 
-    const foundCourse = courses.find((course) => {
-        return course.id == id
+        const courses = JSON.parse(data);
+        const id = req.params.id
+        const foundCourse = courses.find((course) => {
+            return course.id == id
+        })
+
+        if (!foundCourse) {
+            res.json({ "Error": "This id doesn't exist" });
+        }
+        res.json(foundCourse);
+
     })
 
-    if(!foundCourse) {
-        res.json({"Error": "This id doesnt exist"});
- 
-    }
-
-    res.json(foundCourse);
 });
 
 // Add a new course 
 app.post('/api/courses', (req, res) => {
-    const bodyToSave = req.body
-
-    let idToSave = 0;
-    courses.forEach((course) => {
-        if(course.id > idToSave) {
-            idToSave = course.id
-        }
-    })
-    idToSave++
-    res.status(201);
-    courses.push({
-        id: idToSave,
-        body: bodyToSave
-    })
-    res.json({
-        status: "Added new course"
+    fs.readFile('courseList.json', (err, data) => {
+        let courses = JSON.parse(data)
+        let idToSave = 0;
+        courses.forEach((course) => {
+            if (course.id > idToSave) {
+                idToSave = course.id
+            }
+        })
+        idToSave++
+        res.status(201);
+        courses.push({
+            id: idToSave,
+            ...req.body
+        })
+        fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+            res.json({
+                status: "Added new course"
+            })
+        })
     })
 });
 
 // Update a specific course 
 app.put('/api/courses/:id', (req, res) => {
-    const course = courses.find(c => c.id === parseInt(req.params.id)); 
+    const course = courses.find(c => c.id === parseInt(req.params.id));
     course.name = req.body.name,
-    course.points = req.body.points,
-    course.location = req.body.location; 
+        course.points = req.body.points,
+        course.location = req.body.location;
     res.json(course)
 })
 
 //Delete a course 
 app.delete('/api/courses/:id', (req, res) => {
-    const index = courses.findIndex(c => c.id === parseInt(req.params.id)); 
-    const deletedCourse = courses.splice(index, 1); 
-    res.json(deletedCourse); 
+    fs.readFile('courseList.json', (err, data) => {
+        let courses = JSON.parse(data)
+
+        const index = courses.findIndex(c => c.id === parseInt(req.params.id));
+        const deletedCourse = courses.splice(index, 1);
+        res.json(deletedCourse);
+         fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+        res.json({
+            status: "Added new course"
+        })
+    })
+    })
+   
 })
 
-app.listen(port, () => console.log(` Server is running at http://localhost:${port}`)); 
+app.listen(port, () => console.log(` Server is running at http://localhost:${port}`));
 
+//TODO
 // Kolla över felkoder. Felsökning 
 // VG krav 
-// Uppdatera readme filen 
+// Hur läser jag från input fältet? Just nu, hårdkodat exempel på delete, get spec, add. 

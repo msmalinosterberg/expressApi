@@ -24,7 +24,6 @@ function addEventListeners() {
 
 async function getAllCourses() {
     const courses = await makeRequest("/api/courses", "GET")
-    console.log(courses)
     const ul = document.getElementById("courseList");
     courses.forEach((course) => {
       const li = document.createElement("li");
@@ -37,23 +36,25 @@ async function getAllCourses() {
     return courses; 
 }
 
+
 async function getSpecificCourse(id) {
-    const course = await makeRequest("/api/courses/" + "3", "GET")
-    console.log(course)
-    const ul = document.getElementById("courseList");
+    const course = await makeRequest("/api/courses/"+1 ,"GET")
+    // hämta id från inputfältet 
+    const ul = document.getElementById("specificCourseUl");
         const li = document.createElement("li");
         li.appendChild(document.createTextNode("Id: "+ course.id + "  "));
         li.appendChild(document.createTextNode("Name: "+ course.name + "  "));
         li.appendChild(document.createTextNode("Points: " + course.points + "  "));
         li.appendChild(document.createTextNode("Location: "+ course.location + "  "));
         ul.appendChild(li);
-        return course; 
+        return course;  
 }
+
 
 
 async function saveNewCourse(course) {
     const body = {
-        //?? 
+       
     }
     const status = await makeRequest("/api/courses", "POST", body)
     console.log(status)
@@ -63,7 +64,7 @@ async function saveNewCourse(course) {
 
 
 async function deleteCourse(id) {
-    const course = await makeRequest("/api/courses/" + "4", "DELETE")
+    const course = await makeRequest("/api/courses/" + "DELETE")
     console.log(course)
     const ul = document.getElementById("deletedCourse");
     const li = document.createElement("li");
@@ -73,20 +74,7 @@ async function deleteCourse(id) {
     li.appendChild(document.createTextNode("Location: "+ course.location + "  "));
     ul.appendChild(li);
 
-
-
-
 }
-
-function clearParagraph() {
-    const p = document.getElementById("para");
-    p.innerHTML = "";
-  }
-  function clearUl() {
-    const ul = document.getElementById("list");
-    ul.innerHTML = "";
-  }
-
 
 
 async function makeRequest(url, method, body) {

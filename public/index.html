@@ -12,29 +12,29 @@
 </head>
 <body>
     <main class="container mt-6">
-    
     <h2 class="text-start mt-5">Medieinstitutet - Front end developer 2020-2022 </h2> 
 
     <h6 class="text-start mt-5">Press the buttons for more information about the different courses or read about a specific one.</h6>
     <button id="allCourses"class="btn btn-light mt-2">See all courses</button>
-    <button id="specificCourse"class="btn btn-light mt-2">See specific course</button>
     <ul id="courseList" class="mt-2"> 
         <!-- JS code-->
     </ul>
-    <h6 class="">Not sure you want to study a specific course? Click delete and forget about it.</h6>
-    <button type="button" id="deleteCourse"class="btn btn-danger mt-1">Delete</button>
-    <ul id="deletedCourse" class="mt-2"> 
-        <!-- JS code-->
-    </ul>
 
-    
-    <hr> 
-    <h5>Add a new course </h5>
-    <form action="/api/courses" id="addForm"method="POST" class="mb-4 mt-1">
+    <form class="mb-4 mt-1">
         <div class="form-group">
             <label for="id">Id</label>
             <input type="id" name="id" class="form-control">
         </div>
+        <button type="button" id="specificCourse"class="btn btn-light mt-2">See specific course</button>
+        <ul id="specificCourseUl" class="mt-2"> 
+            <!-- JS code-->
+        </ul>
+    </form>
+
+    
+    <hr> 
+    <h5>Add a new course </h5>
+    <form class="mb-4 mt-1">
         <div class="form-group">
             <label for="name">Name</label>
             <input type="name" name="name" class="form-control">
@@ -47,9 +47,22 @@
             <label for="location">Location</label>
             <input type="location" name="location" class="form-control">
         </div>
-        <button id="addCourse" class="btn btn btn-dark mt-3">SEND</button>
+        <button type="button" id="addCourse" class="btn btn btn-dark mt-3">SEND</button>
     </form>
     
+
+
+    <h6 class="">Not sure you want to study a specific course? Click delete and forget about it.</h6>
+    <form class="mb-4 mt-1">
+        <div class="form-group">
+            <label for="id">Write the course ID</label>
+            <input type="id" name="id" class="form-control">
+        </div>
+    <button type="button" id="deleteCourse"class="btn btn-danger mt-1">Delete</button>
+    <ul id="deletedCourse" class="mt-2"> 
+        <!-- JS code-->
+    </ul>
+
  
     </main>
 </body>

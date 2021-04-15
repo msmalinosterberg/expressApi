@@ -1,44 +1,7 @@
 const express = require('express');
 const fs = require("fs");
-
 const app = express();
 const port = 3000;
-
-
-
-/*const courses = [
-    
-    {   
-        id: 1, 
-        name:'HTML & CSS',
-        points: 20,
-        location: 'Göteborg'
-    }, 
-    { 
-        id: 2,
-        name:'JavaScript grundkurs',
-        points: 60,
-        location: 'remote/Göteborg'
-
-    }, 
-    { 
-        id: 3,
-        name:'Projektarbete med agila metoder',
-        points: 15,
-        location: 'remote/Göteborg'
-
-    }, 
-    { 
-        id: 4,
-        name:'JavaScript fördjupning',
-        points: 40,
-        location: 'remote/Göteborg'
-
-    }, 
-]; 
-*/
-
-//Serve alla filer i public filen
 app.use(express.static('./public'))
 app.use(express.json());
 
@@ -48,7 +11,7 @@ app.get('/', (req, res) => {
 });
 
 
-// All courses 
+// all courses 
 app.get("/api/courses", (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         let courses = JSON.parse(data)
@@ -59,8 +22,7 @@ app.get("/api/courses", (req, res) => {
     })
 });
 
-
-// Specific course with id 
+// specific course with id 
 app.get('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
 
@@ -74,12 +36,12 @@ app.get('/api/courses/:id', (req, res) => {
             res.json({ "Error": "This id doesn't exist" });
         }
         res.json(foundCourse);
-        return; 
+        return;
     })
 
 });
 
-// Add a new course 
+// add new course 
 app.post('/api/courses', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         let courses = JSON.parse(data)
@@ -103,11 +65,12 @@ app.post('/api/courses', (req, res) => {
     })
 });
 
-// Update a specific course 
+
+
+// update a specific course 
 app.put('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         let courses = JSON.parse(data)
-
         const course = courses.find(c => c.id === parseInt(req.params.id));
         course.name = req.body.name,
             course.points = req.body.points,
@@ -115,33 +78,28 @@ app.put('/api/courses/:id', (req, res) => {
         res.json(course)
         fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
             res.json({
+                status: "Course updated"
+            })
+        })
+        return;
+    })
+})
+
+//delete course 
+app.delete('/api/courses/:id', (req, res) => {
+    fs.readFile('courseList.json', (err, data) => {
+        let courses = JSON.parse(data)
+
+        const index = courses.findIndex(c => c.id === parseInt(req.params.id));
+        const deletedCourse = courses.splice(index, 1);
+        res.json(deletedCourse);
+        fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+            res.json({
                 status: "Course deleted"
             })
         })
     })
+    return;
 })
 
-    //Delete a course 
-    app.delete('/api/courses/:id', (req, res) => {
-        fs.readFile('courseList.json', (err, data) => {
-            let courses = JSON.parse(data)
-
-            const index = courses.findIndex(c => c.id === parseInt(req.params.id));
-            const deletedCourse = courses.splice(index, 1);
-            res.json(deletedCourse);
-            fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
-                res.json({
-                    status: "Course deleted"
-                })
-            })
-        })
-
-    })
-
-    app.listen(port, () => console.log(` Server is running at http://localhost:${port}`));
-
-//TODO
-// Kolla över felkoder. Felsökning 
-// VG krav 
-// Hur läser jag från input fältet? Just nu, hårdkodat exempel på delete, get spec, add. 
-// Lägga till update i UI 
+app.listen(port, () => console.log(` Server is running at http://localhost:${port}`));

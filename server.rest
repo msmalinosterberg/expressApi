@@ -10,19 +10,13 @@ GET http://localhost:3000/api/courses/1
 POST http://localhost:3000/api/courses
 Content-Type: application/json
 
-{
-    "name": "Dynamisk Webbutveckling",
-    "points": 45, 
-    "location": "remote/Göteborg" 
-}
-
 ### 
 
 PUT http://localhost:3000/api/courses/1
 Content-Type: application/json 
 
 {
-    "name": "Nytt namn på kursen", 
+    "name": "Nytt namn på kursen5", 
     "points": "100", 
     "location": "Ny plats"
 }

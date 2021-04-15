@@ -74,7 +74,7 @@ app.get('/api/courses/:id', (req, res) => {
             res.json({ "Error": "This id doesn't exist" });
         }
         res.json(foundCourse);
-
+        return; 
     })
 
 });
@@ -95,7 +95,7 @@ app.post('/api/courses', (req, res) => {
             id: idToSave,
             ...req.body
         })
-        fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+        fs.writeFile('courseList.json', JSON.stringify(courses, null, 2), (err) => {
             res.json({
                 status: "Added new course"
             })
@@ -144,3 +144,4 @@ app.put('/api/courses/:id', (req, res) => {
 // Kolla över felkoder. Felsökning 
 // VG krav 
 // Hur läser jag från input fältet? Just nu, hårdkodat exempel på delete, get spec, add. 
+// Lägga till update i UI 

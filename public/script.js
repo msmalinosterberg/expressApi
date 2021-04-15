@@ -22,6 +22,9 @@ function addEventListeners() {
 
 }
 
+
+
+
 async function getAllCourses() {
     const courses = await makeRequest("/api/courses", "GET")
     const ul = document.getElementById("courseList");
@@ -37,9 +40,14 @@ async function getAllCourses() {
 }
 
 
-async function getSpecificCourse(id) {
-    const course = await makeRequest("/api/courses/"+1 ,"GET")
+
+async function getSpecificCourse() {
+    const id = document.getElementById('specificId').value
+    console.log(id)
+    const course = await makeRequest("/api/courses/" +id,"GET")
     // hämta id från inputfältet 
+   
+   
     const ul = document.getElementById("specificCourseUl");
         const li = document.createElement("li");
         li.appendChild(document.createTextNode("Id: "+ course.id + "  "));
@@ -53,9 +61,7 @@ async function getSpecificCourse(id) {
 
 
 async function saveNewCourse(course) {
-    const body = {
-       
-    }
+    
     const status = await makeRequest("/api/courses", "POST", body)
     console.log(status)
     return course; 
@@ -73,6 +79,10 @@ async function deleteCourse(id) {
     li.appendChild(document.createTextNode("Points: " + course.points + "  "));
     li.appendChild(document.createTextNode("Location: "+ course.location + "  "));
     ul.appendChild(li);
+
+
+    // if value from input matchar course.id. splice det id. 
+    // Om id inte existerar så try again 
 
 }
 

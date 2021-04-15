@@ -15,7 +15,7 @@
     <h2 class="text-start mt-5">Medieinstitutet - Front end developer 2020-2022 </h2> 
 
     <h6 class="text-start mt-5">Press the buttons for more information about the different courses or read about a specific one.</h6>
-    <button id="allCourses"class="btn btn-light mt-2">See all courses</button>
+    <button type="button" id="allCourses"class="btn btn-light mt-2">See all courses</button>
     <ul id="courseList" class="mt-2"> 
         <!-- JS code-->
     </ul>
@@ -33,6 +33,10 @@
     <h5>Update a course </h5>
     <form class="mb-4 mt-1">
         <div class="form-group">
+            <label for="id">Id</label>
+            <input id="formUpdateCourseId"type="id" name="id" class="form-control">
+        </div>
+        <div class="form-group">
             <label for="name">Name</label>
             <input id="formUpdateCourseName"type="name" name="name" class="form-control">
         </div>
@@ -44,7 +48,10 @@
             <label for="location">Location</label>
             <input id="formUpdateCourseLocation"type="location" name="location" class="form-control">
         </div>
-        <button type="button" id="updateCourse" class="btn btn btn-dark mt-3">UPDATE</button>
+        <button type="reset" id="updateCourse" class="btn btn btn-dark mt-3">UPDATE</button>
+        <ul id="updatedCourse" class="mt-2"> 
+            <!-- JS code-->
+        </ul>
     </form>
     
 
@@ -64,7 +71,10 @@
             <label for="location">Location</label>
             <input id="formAddNewCourseLocation"type="location" name="location" class="form-control">
         </div>
-        <button type="button" id="addCourse" class="btn btn btn-dark mt-3">SEND</button>
+        <button type="reset" id="addCourse" class="btn btn btn-dark mt-3">SEND</button>
+        <ul id="addedCourse" class="mt-2"> 
+            <!-- JS code-->
+        </ul>
     </form>
     
 
@@ -75,7 +85,7 @@
             <label for="id">Write the course ID</label>
             <input id="inputDeleteId"type="id" name="id" class="form-control">
         </div>
-    <button type="button" id="deleteCourse"class="btn btn-danger mt-1">Delete</button>
+    <button type="reset" id="deleteCourse"class="btn btn-danger mt-1">Delete</button>
     <ul id="deletedCourse" class="mt-2"> 
         <!-- JS code-->
     </ul>

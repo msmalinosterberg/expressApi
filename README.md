@@ -10,7 +10,7 @@ Godkänt:
 5) Projektmappen innehåller en README.md fil
 6) Uppgiften lämnas in i tid!
 
-##### Bygg och kör projektet  
+##### Bygg och kör projektet.   
 1) Npm install 
 2) Npm start 
 

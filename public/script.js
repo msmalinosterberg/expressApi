@@ -78,17 +78,11 @@ async function saveNewCourse(name, price, location) {
 }
 
 
-async function deleteCourse(id) {
-    const course = await makeRequest("/api/courses/" + "DELETE")
-    console.log(course)
-    const ul = document.getElementById("deletedCourse");
-    const li = document.createElement("li");
-    li.appendChild(document.createTextNode("Id: "+ course.id + "  "));
-    li.appendChild(document.createTextNode("Name: "+ course.name + "  "));
-    li.appendChild(document.createTextNode("Points: " + course.points + "  "));
-    li.appendChild(document.createTextNode("Location: "+ course.location + "  "));
-    ul.appendChild(li);
-
+async function deleteCourse() {
+    let inputDelete = document.getElementById('inputDeleteId').value
+    const course = await makeRequest("/api/courses/" +inputDelete,  "DELETE")
+    const p = document.getElementById("deletedCourse");
+    p.appendChild(document.createTextNode(`Course with id ${inputDelete} was deleted`));
 
     // if value from input matchar course.id. splice det id. 
     // Om id inte existerar så try again 

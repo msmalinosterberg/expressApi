@@ -45,9 +45,7 @@ async function getSpecificCourse() {
     const id = document.getElementById('specificId').value
     console.log(id)
     const course = await makeRequest("/api/courses/" +id,"GET")
-    // hämta id från inputfältet 
-   
-   
+    
     const ul = document.getElementById("specificCourseUl");
         const li = document.createElement("li");
         li.appendChild(document.createTextNode("Id: "+ course.id + "  "));
@@ -60,11 +58,22 @@ async function getSpecificCourse() {
 
 
 
-async function saveNewCourse(course) {
+async function saveNewCourse(name, price, location) {
+    let inputAddCourseName = document.getElementById('formAddNewCourseName').value
+    let inputAddCoursePoints = document.getElementById('formAddNewCoursePoints').value
+    let inputAddCourseLocation = document.getElementById('formAddNewCourseLocation').value
+
+    let body = { 
+    name: inputAddCourseName, 
+    points: inputAddCoursePoints, 
+    location: inputAddCourseLocation
+    }   
     
+    console.log(inputAddCourseName,inputAddCoursePoints, inputAddCourseLocation )
+
     const status = await makeRequest("/api/courses", "POST", body)
     console.log(status)
-    return course; 
+    return; 
  
 }
 

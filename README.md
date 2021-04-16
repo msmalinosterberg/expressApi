@@ -1,5 +1,6 @@
 ## REST-API 
-Api med funktionalitet för CRUD (create, read, update, delete). 
+Jag har skapat ett rest-api i NodeJs med express. Api:et har funktionalitet för CRUD (create, read, update och delete) och all data sparas i en JSON-fil. Jag har använt mig av Bootstrap och skapat en enkel resonsiv sida. Tester har gjorts med REST Client i VS Code. 
+
 
 ###### Följande krav är uppfyllda
 
@@ -16,7 +17,7 @@ Api med funktionalitet för CRUD (create, read, update, delete).
 2) All data skall vara sparad i en JSON-fil istället för i serverfilen
 3) Datan i JSON-filen skall uppdateras då något läggs till, uppdateras eller tas bort
 4) Ett simpelt klient-gränssnitt skall finnas för att anropa API:ets olika endpoints, samt visa upp resultatet vid GET anrop
-5) Ytterligare en GET endpoint skall läggas till där det går att hämta ett specifikt objek
+5) Ytterligare en GET endpoint skall läggas till där det går att hämta ett specifikt objekt. 
 
 ##### Bygg och kör projektet.   
 1) Npm install 

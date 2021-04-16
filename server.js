@@ -16,7 +16,7 @@ app.get("/api/courses", (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         let courses = JSON.parse(data)
         if (err) {
-            res.status(404).json('there are no courses')
+            res.status(404).json(courses)
         }
         res.json(courses);
     })
@@ -26,6 +26,10 @@ app.get("/api/courses", (req, res) => {
 app.get('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
 
+        if(err) {
+            return res.status(404).json(course)
+        }
+
         const courses = JSON.parse(data);
         const id = req.params.id
         const foundCourse = courses.find((course) => {
@@ -33,7 +37,7 @@ app.get('/api/courses/:id', (req, res) => {
         })
 
         if (!foundCourse) {
-            res.json({ "Error": "This id doesn't exist" });
+            res.status(404).json("This id doesn't exist");
         }
         res.json(foundCourse);
         return;
@@ -41,9 +45,12 @@ app.get('/api/courses/:id', (req, res) => {
 
 });
 
-// add new course 
+// ADD NEW COURSE 
 app.post('/api/courses', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
+        if (err) {
+            return res.status(404).json(courses);
+          }
         let courses = JSON.parse(data)
         let idToSave = 0;
         courses.forEach((course) => {
@@ -58,9 +65,10 @@ app.post('/api/courses', (req, res) => {
             ...req.body
         })
         fs.writeFile('courseList.json', JSON.stringify(courses, null, 2), (err) => {
-            res.json({
-                status: "Added new course"
-            })
+            if (err) {
+                return res.status(400).json(courses);
+              }
+            res.status(201).json("Added a new course")
         })
     })
 });
@@ -82,16 +90,11 @@ app.put('/api/courses/:id', (req, res) => {
         course.name = req.body.name,
             course.points = req.body.points,
             course.location = req.body.location;
-           
-
+        
         res.json(course)
         fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
             
-                res.json({
-                    status: "Course updated"
-                })
-            
-            
+                res.status(202).json("Course updated")
         })
         return;
     })
@@ -102,10 +105,9 @@ app.delete('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         const { id } = req.params; 
         let courses = JSON.parse(data)
-        if (err) {
-            return res.status(400).json(courses);
-          }
-        
+            if (err) {
+                return res.status(400).json(courses);
+            }
         const course  = courses.find((course) => course.id === parseInt((id)));
         if (!course) {
             return res.status(400).json("The id doesn't exist. Try another one.");
@@ -114,12 +116,9 @@ app.delete('/api/courses/:id', (req, res) => {
         courses.splice(index, 1);
         fs.writeFile('./courseList.json', JSON.stringify(courses, null, 2), (err) => {
             if (err) {
-                return res.status(400).json(course);
+                return res.status(404).json(course);
             }
-              res.json({
-                status: "Course deleted"
-            })
-            
+              res.status(202).json("Course deleted")
         })
     })
     return;

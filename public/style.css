@@ -1,10 +1,10 @@
 body {
-    background: lightgrey;
+    background: lightgrey; 
+    
 }
 
-.form-control {
-    width: 35rem; 
+.container {
+    width: 50rem;
+    background: #dddddd;
 }
-hr {
-    width: 40rem;
-}
+

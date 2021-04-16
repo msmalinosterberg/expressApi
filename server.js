@@ -84,6 +84,9 @@ app.put('/api/courses/:id', (req, res) => {
 
         res.json(course)
         fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
+            if (err) {
+                return res.status(404).json(course);
+            }
             res.status(202).json("Course updated")
         })
         return;

@@ -3,7 +3,7 @@ GET http://localhost:3000/api/courses
 
 ###
 
-GET http://localhost:3000/api/courses/2
+GET http://localhost:3000/api/courses/1
 
 ###
 
@@ -12,12 +12,17 @@ Content-Type: application/json
 
 ### 
 
-PUT http://localhost:3000/api/courses/2
+PUT http://localhost:3000/api/courses/6
 Content-Type: application/json 
 
+{
+    "name": "Uppdaterat",
+    "points": "Uppdaterat", 
+    "location": "Uppdaterat"
+}
 
 ###
 
-DELETE http://localhost:3000/api/courses/1
+DELETE http://localhost:3000/api/courses/6
 
 ###

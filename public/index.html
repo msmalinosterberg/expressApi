@@ -13,24 +13,28 @@
 <body>
     <main class="container mt-6">
     <h2 class="text-start mt-5">Medieinstitutet - Front end developer 2020-2022 </h2> 
-
     <h6 class="text-start mt-5">Press the buttons for more information about the different courses or read about a specific one.</h6>
     <button type="button" id="allCourses"class="btn btn-light mt-2">See all courses</button>
     <ul id="courseList" class="mt-2"> 
         <!-- JS code-->
     </ul>
 
+    <!--GET SPECIFIC COURSE-->
     <form id="form" class="mb-4 mt-1">
         <div class="form-group">
             <label for="id">Id</label>
-            <input id="specificId" type="id" name="id" class="form-control">
+            <input id="specificId" type="id" name="id" class="form-control" placeholder="Insert existing id">
         </div>
         <button type="button" id="specificCourse"class="btn btn-light mt-2">See specific course</button>
         <ul id="specificCourseUl" class="mt-2"> 
             <!-- JS code-->
         </ul>
     </form>
+    <hr> 
+
+    <!--UPDATE COURSE-->
     <h5>Update a course </h5>
+    <p>All fields must be filled</p>
     <form class="mb-4 mt-1">
         <div class="form-group">
             <label for="id">Id</label>
@@ -53,11 +57,11 @@
             <!-- JS code-->
         </ul>
     </form>
-    
-
-    
     <hr> 
+
+    <!--ADD NEW COURSE -->
     <h5>Add new course </h5>
+    <p>All fields must be filled</p>
     <form class="mb-4 mt-1">
         <div class="form-group">
             <label for="name">Name</label>
@@ -76,21 +80,20 @@
             <!-- JS code-->
         </ul>
     </form>
+    <hr> 
     
-
-
+    <!--DELETE COURSE-->
     <h6 class="">Not sure you want to study a specific course? Click delete and forget about it.</h6>
     <form class="mb-4 mt-1">
         <div class="form-group">
             <label for="id">Write the course ID</label>
-            <input id="inputDeleteId"type="id" name="id" class="form-control">
+            <input id="inputDeleteId"type="id" name="id" class="form-control" placeholder="Insert existing id">
         </div>
     <button type="reset" id="deleteCourse"class="btn btn-danger mt-1">Delete</button>
     <ul id="deletedCourse" class="mt-2"> 
         <!-- JS code-->
     </ul>
 
- 
     </main>
 </body>
 </html>

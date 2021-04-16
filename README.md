@@ -1,5 +1,5 @@
 ## REST-API 
-Jag har skapat ett rest-api i NodeJs med express. Api:et har funktionalitet för CRUD (create, read, update och delete) och all data sparas i en JSON-fil. Jag har använt mig av Bootstrap och skapat en enkel resonsiv sida. Tester har gjorts med REST Client i VS Code. 
+Jag har skapat ett rest-api i NodeJs med express. Api:et har funktionalitet för CRUD (create, read, update och delete) och all data sparas i en JSON-fil. Jag har använt mig av Bootstrap och skapat en enkel responsiv sida. Tester har gjorts med REST Client i VS Code. 
 
 
 ###### Följande krav är uppfyllda

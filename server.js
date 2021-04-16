@@ -67,39 +67,66 @@ app.post('/api/courses', (req, res) => {
 
 
 
-// update a specific course 
+// UPDATE SPECIFIC COURSE  
 app.put('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
         let courses = JSON.parse(data)
+        if (err) {
+            return res.status(404).json('This page doesnt exist.');
+        }
+    
         const course = courses.find(c => c.id === parseInt(req.params.id));
+        if (!course) {
+            return res.json("The id doesn't exist. Try another one.");
+          }
         course.name = req.body.name,
             course.points = req.body.points,
             course.location = req.body.location;
+           
+
         res.json(course)
         fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
-            res.json({
-                status: "Course updated"
-            })
+            
+                res.json({
+                    status: "Course updated"
+                })
+            
+            
         })
         return;
     })
 })
 
-//delete course 
+//DELETE COURSE 
 app.delete('/api/courses/:id', (req, res) => {
     fs.readFile('courseList.json', (err, data) => {
+        const { id } = req.params; 
         let courses = JSON.parse(data)
-
-        const index = courses.findIndex(c => c.id === parseInt(req.params.id));
-        const deletedCourse = courses.splice(index, 1);
-        res.json(deletedCourse);
-        fs.writeFile('./courseList.json', JSON.stringify(courses), (err) => {
-            res.json({
+        if (err) {
+            return res.status(400).json(courses);
+          }
+        
+        const course  = courses.find((course) => course.id === parseInt((id)));
+        if (!course) {
+            return res.status(400).json("The id doesn't exist. Try another one.");
+        } 
+        const index = courses.findIndex((course) => course.id ===parseInt(id));
+        courses.splice(index, 1);
+        fs.writeFile('./courseList.json', JSON.stringify(courses, null, 2), (err) => {
+            if (err) {
+                return res.status(400).json(course);
+            }
+              res.json({
                 status: "Course deleted"
             })
+            
         })
     })
     return;
 })
+
+
+
+
 
 app.listen(port, () => console.log(` Server is running at http://localhost:${port}`));

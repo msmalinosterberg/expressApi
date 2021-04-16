@@ -1,1 +1,8 @@
-[{"id":1,"name":"HTML & CSS","points":"20","location":"Göteborg"},{"id":2,"name":"JavaScript grundkurs","points":60,"location":"remote/Göteborg"},{"id":3,"name":"Projektarbete med agila metoder","points":"15","location":"Göteborg / remote"},{"id":5,"body":{},"name":"JavaScript fördjupning","points":"45","location":"remote/göteborg"},{"id":6,"name":"Dynamisk Webbutveckling","points":45,"location":"remote/Göteborg"}]
+[
+  {
+    "id": 2
+  },
+  {
+    "id": 3
+  }
+]

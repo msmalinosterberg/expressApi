@@ -1,8 +1,32 @@
 [
   {
-    "id": 2
+    "id": 1,
+    "name": "HTML & CSS",
+    "points": "20",
+    "location": "Göteborg"
   },
   {
-    "id": 3
+    "id": 2,
+    "name": "JavaScript ",
+    "points": "60",
+    "location": "remote/Göteborg"
+  },
+  {
+    "id": 3,
+    "name": "Agila metoder ",
+    "points": "15",
+    "location": "remote/Göteborg"
+  },
+  {
+    "id": 4,
+    "name": "JavaScript",
+    "points": "40",
+    "location": "remote/Göteborg"
+  },
+  {
+    "id": 5,
+    "name": "Dynamisk webbutveckling",
+    "points": "45",
+    "location": "remote/Göteborg"
   }
 ]
